@@ -1,38 +1,33 @@
-# .github/workflows/deploy.yml
 name: Deploy to GitHub Pages
-
 on:
   push:
     branches: [main] # 또는 master
   workflow_dispatch:
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Prepare deployment structure
         run: |
           mkdir -p deploy
-
           # 에셋 폴더들을 deploy로 복사
           cp -r modo-phinf.pstatic.net deploy/ 2>/dev/null || true
           cp -r openapi.map.naver.com deploy/ 2>/dev/null || true
           cp -r ssl.pstatic.net deploy/ 2>/dev/null || true
           cp -r wcs.naver.net deploy/ 2>/dev/null || true
           cp -r www.modoo.at deploy/ 2>/dev/null || true
-
-          # sunshine1971.modoo.at의 내용을 deploy 루트로 복사
-          cp -r sunshine1971.modoo.at/* deploy/
-          cp -r sunshine1971.modoo.at/.* deploy/ 2>/dev/null || true
-
-          # 기타 필요한 파일들 (있다면)
+          # 루트의 HTML 파일들과 기타 파일들을 deploy로 복사
+          cp *.html deploy/ 2>/dev/null || true
+          cp *.css deploy/ 2>/dev/null || true
+          cp *.js deploy/ 2>/dev/null || true
           cp *.jpg deploy/ 2>/dev/null || true
           cp *.png deploy/ 2>/dev/null || true
-
+          cp *.gif deploy/ 2>/dev/null || true
+          cp *.ico deploy/ 2>/dev/null || true
+          # 숨김 파일들도 복사 (있다면)
+          cp .* deploy/ 2>/dev/null || true
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
