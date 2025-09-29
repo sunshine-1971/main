@@ -26,6 +26,7 @@ jobs:
           cp *.png deploy/ 2>/dev/null || true
           cp *.gif deploy/ 2>/dev/null || true
           cp *.ico deploy/ 2>/dev/null || true
+          cp *.svg deploy/ 2>/dev/null || true
           # 숨김 파일들도 복사 (있다면)
           cp .* deploy/ 2>/dev/null || true
       - name: Deploy to GitHub Pages
